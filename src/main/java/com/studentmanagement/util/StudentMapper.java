@@ -19,3 +19,4 @@ public interface StudentMapper {
     @Mapping(target = "addressDTO",source = "address")
     StudentDTO toDto(Student entity);
 }
+

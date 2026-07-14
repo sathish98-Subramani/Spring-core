@@ -50,14 +50,17 @@ public class Student {
     @JoinColumn(name = "address_id")
     private Address address;
 
-    @ManyToOne(cascade = CascadeType.ALL, fetch = FetchType.LAZY)
+    @ManyToOne(fetch = FetchType.EAGER)
     @JoinColumn(name = "department_id")
     private Department department;
 
-    @ManyToMany(cascade ={ CascadeType.PERSIST,CascadeType.MERGE})
-    @JoinTable(name = "student_course",
-            joinColumns = @JoinColumn(name = "student_id")
-            ,inverseJoinColumns = @JoinColumn(name = "course_id"))
+    @ManyToMany(fetch = FetchType.EAGER,
+            cascade = {CascadeType.PERSIST, CascadeType.MERGE})
+    @JoinTable(
+            name = "student_course",
+            joinColumns = @JoinColumn(name = "student_id"),
+            inverseJoinColumns = @JoinColumn(name = "course_id")
+    )
     private Set<Course> course = new HashSet<>();
 
     public Student(Integer id, String name, String regNo, Gender gender, LocalDate dateOfBirth, Integer age, String email, String mobileNumber, Address address, Department department, Set<Course> course) {
